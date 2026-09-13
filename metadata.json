@@ -1,0 +1,6 @@
+{
+  "name": "Women Empire Fitness",
+  "description": "Women Empire Fitness (वूमन एम्पायर फिटनेस) - Women-owned premier gym in Jogabai Extension, Okhla, New Delhi. Featuring personal training, strength, cardio, and a safe, empowering environment.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
