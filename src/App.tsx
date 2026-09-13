@@ -42,6 +42,7 @@ import {
   ResponsiveContainer,
   Cell
 } from "recharts";
+import { AutoSlideCarousel } from "./components/AutoSlideCarousel";
 
 /* ==========================================================================
    BUSINESS PROFILE DATA (Women Empire Fitness - वूमन एम्पायर फिटनेस)
@@ -154,6 +155,46 @@ const MEMBERSHIP_PLANS: MembershipPlan[] = [
       "Custom Nutrition & Hormonal Balance Guidance",
       "Free Guest Pass (4/year) for Friends & Family"
     ]
+  }
+];
+
+// Features for "A Safe, Private Space Built for Women"
+const ABOUT_FEATURES = [
+  {
+    icon: ShieldCheck,
+    title: "100% Privacy & Security",
+    tag: "Exclusive Women Floor",
+    description: "An exclusive women-only floor allowing you to workout without hesitation or discomfort. Fully enclosed, safe, and respectful."
+  },
+  {
+    icon: Award,
+    title: "Certified Female Coaches",
+    tag: "Female Staff Only",
+    description: "Empathetic, knowledgeable trainers specializing in women's posture, core conditioning, postpartum recovery, and PCOS management."
+  },
+  {
+    icon: Dumbbell,
+    title: "Modern Strength & Cardio",
+    tag: "Biomechanic Equipment",
+    description: "Clean treadmills, cross-trainers, dumbbells, barbells, resistance bands, and functional turf for complete body transformation."
+  },
+  {
+    icon: Heart,
+    title: "Women-Owned & Inclusive",
+    tag: "Supportive Sisterhood",
+    description: "LGBTQ+ friendly, supportive sisterhood community where college students, working women, and homemakers thrive together."
+  },
+  {
+    icon: Clock,
+    title: "Flexible Batch Timings",
+    tag: "6:00 AM – 9:00 PM",
+    description: "Morning and evening batches scheduled to comfortably accommodate students, working professionals, and busy homemakers."
+  },
+  {
+    icon: Sparkles,
+    title: "Hygienic, AC & CCTV Monitored",
+    tag: "Pristine & Sanitized",
+    description: "Pristine locker facilities, daily sanitized equipment, air-conditioned workout hall, and comprehensive security monitoring."
   }
 ];
 
@@ -880,62 +921,46 @@ export default function App() {
             </p>
           </div>
 
-          {/* 4 Feature Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#f34c38]/50 hover:shadow-lg hover:shadow-[#f34c38]/10 transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center mb-4 text-[#f34c38]">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="font-display text-xl font-bold uppercase text-white mb-2">
-                100% Privacy & Security
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                An exclusive women-only floor allowing you to workout without hesitation or discomfort. Fully enclosed, safe, and respectful.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#f34c38]/50 hover:shadow-lg hover:shadow-[#f34c38]/10 transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center mb-4 text-[#f34c38]">
-                <Award className="w-6 h-6" />
-              </div>
-              <h3 className="font-display text-xl font-bold uppercase text-white mb-2">
-                Certified Female Coaches
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                Empathetic, knowledgeable trainers specializing in women's posture, core conditioning, postpartum recovery, and PCOS management.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#f34c38]/50 hover:shadow-lg hover:shadow-[#f34c38]/10 transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center mb-4 text-[#f34c38]">
-                <Dumbbell className="w-6 h-6" />
-              </div>
-              <h3 className="font-display text-xl font-bold uppercase text-white mb-2">
-                Modern Strength & Cardio
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                Clean treadmills, cross-trainers, dumbbells, barbells, resistance bands, and functional turf for complete body transformation.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#f34c38]/50 hover:shadow-lg hover:shadow-[#f34c38]/10 transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center mb-4 text-[#f34c38]">
-                <Heart className="w-6 h-6 text-[#f34c38]" />
-              </div>
-              <h3 className="font-display text-xl font-bold uppercase text-white mb-2">
-                Women-Owned & Inclusive
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-                LGBTQ+ friendly, supportive sisterhood community where college students, working women, and homemakers thrive together.
-              </p>
-            </div>
-          </div>
+          {/* Auto-Sliding Feature Cards */}
+          <AutoSlideCarousel
+            items={ABOUT_FEATURES}
+            speedSeconds={28}
+            badgeLabel="Why Us Features"
+            cardWidthClass="w-[300px] sm:w-[350px] lg:w-[380px]"
+            renderCard={(feat) => {
+              const IconComp = feat.icon;
+              return (
+                <div className="h-full p-6 sm:p-7 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#f34c38]/50 hover:shadow-xl hover:shadow-[#f34c38]/10 transition-all duration-300 flex flex-col justify-between group">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center text-[#f34c38] group-hover:bg-[#f34c38] group-hover:text-white transition-colors duration-200">
+                        <IconComp className="w-6 h-6" />
+                      </div>
+                      <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-neutral-800 text-[#f56f36] border border-neutral-700/50">
+                        {feat.tag}
+                      </span>
+                    </div>
+                    <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-white mb-2 tracking-tight group-hover:text-[#f56f36] transition-colors">
+                      {feat.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                      {feat.description}
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-neutral-800/80 flex items-center gap-2 text-xs font-semibold text-emerald-400">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Women-Only Facility Guarantee</span>
+                  </div>
+                </div>
+              );
+            }}
+          />
         </div>
       </section>
 
       {/* ===================================================================
           4. PROGRAMS / SERVICES SECTION
-          Card grid: Strength, Cardio, PT, Group, Free Weights, BCA
+          Auto-sliding card carousel: Strength, Cardio, PT, Group, Free Weights, BCA
           =================================================================== */}
       <section id="programs" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -952,31 +977,35 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PROGRAMS.map((prog, index) => {
+          {/* Auto-Sliding Programs Cards */}
+          <AutoSlideCarousel
+            items={PROGRAMS}
+            speedSeconds={24}
+            badgeLabel="Programs & Amenities"
+            cardWidthClass="w-[310px] sm:w-[360px] lg:w-[390px]"
+            renderCard={(prog) => {
               const IconComp = prog.icon;
               return (
-                <div
-                  key={index}
-                  className="p-6 rounded-2xl bg-neutral-900/90 border border-neutral-800 hover:border-[#f34c38]/40 transition-all duration-300 group hover:-translate-y-1"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center text-[#f34c38] mb-5 group-hover:bg-[#f34c38] group-hover:text-white transition-colors duration-200">
-                    <IconComp className="w-6 h-6" />
+                <div className="h-full p-6 sm:p-7 rounded-2xl bg-neutral-900/90 border border-neutral-800 hover:border-[#f34c38]/50 hover:shadow-xl hover:shadow-[#f34c38]/10 transition-all duration-300 flex flex-col justify-between group">
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-[#f34c38]/15 border border-[#f34c38]/30 flex items-center justify-center text-[#f34c38] mb-5 group-hover:bg-[#f34c38] group-hover:text-white transition-colors duration-200">
+                      <IconComp className="w-6 h-6" />
+                    </div>
+                    <h3 className="font-display text-2xl font-black uppercase tracking-tight text-white mb-2 group-hover:text-[#f56f36] transition-colors">
+                      {prog.title}
+                    </h3>
+                    <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+                      {prog.description}
+                    </p>
                   </div>
-                  <h3 className="font-display text-2xl font-black uppercase tracking-tight text-white mb-2">
-                    {prog.title}
-                  </h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed">
-                    {prog.description}
-                  </p>
-                  <div className="mt-5 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs font-semibold text-[#f56f36]">
+                  <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs font-semibold text-[#f56f36]">
                     <span>Included with Membership</span>
                     <CheckCircle2 className="w-4 h-4 text-[#f34c38]" />
                   </div>
                 </div>
               );
-            })}
-          </div>
+            }}
+          />
         </div>
       </section>
 

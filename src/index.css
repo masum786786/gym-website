@@ -15,3 +15,25 @@
 .font-sans {
   font-family: var(--font-sans);
 }
+
+/* Continuous Auto-Sliding Marquee Keyframes */
+@keyframes autoSlideLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-auto-slide-track {
+  display: flex;
+  width: max-content;
+  animation: autoSlideLeft var(--slide-duration, 28s) linear infinite;
+  will-change: transform;
+}
+
+.animate-auto-slide-track:hover,
+.slide-paused {
+  animation-play-state: paused !important;
+}
